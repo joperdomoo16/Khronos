@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 52 52">
+  <title>Khronos</title>
+  <style>
+    .tinta { fill: #141927; }
+    .arena { fill: #8E3524; }
+    @media (prefers-color-scheme: dark) {
+      .tinta { fill: #F2F1FA; }
+      .arena { fill: #E2A56C; }
+    }
+  </style>
+  <path class="arena" d="M24.2 32.4 L27.4 30.4 L52.4 53 L42 53 Z"/>
+  <path class="tinta" d="M23.6 30.16 L49.6 8.96 L51.6 11.44 L25.6 32.64 Z"/>
+  <rect class="tinta" x="14" y="11" width="7" height="42"/>
+  <rect class="tinta" x="10" y="7" width="44" height="4.6" rx="1.2"/>
+  <rect class="tinta" x="10" y="52.4" width="44" height="4.6" rx="1.2"/>
+</svg>

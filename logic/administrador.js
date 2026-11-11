@@ -17,8 +17,12 @@ class TaskManager {
   }
 
   addTask(task) {
-    task.id = this.currentId;
-    this.currentId = this.currentId + 1;
+    if (!task.id) {
+      task.id = this.currentId;
+    }
+    if (task.id >= this.currentId) {
+      this.currentId = task.id + 1;
+    }
     this.tasks.push(task);
     return task;
   }
