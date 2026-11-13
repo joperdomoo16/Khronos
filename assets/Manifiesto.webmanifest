@@ -5,8 +5,8 @@
   "lang": "es-CO",
   "start_url": "../index.html",
   "display": "standalone",
-  "background_color": "#B4BFCE",
-  "theme_color": "#B4BFCE",
+  "background_color": "#404241",
+  "theme_color": "#404241",
   "icons": [
     { "src": "img/Iconomediano.png", "sizes": "192x192", "type": "image/png" },
     { "src": "img/Iconogrande.png", "sizes": "512x512", "type": "image/png" }

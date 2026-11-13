@@ -1,5 +1,5 @@
 /* Escena de inicio en video, inicio de sesion y transicion hacia el panel principal
-   Fases de la raiz: intro -> cross (video: cruce, entrada, turbulencia, blanco) -> app */
+   Fases de la raiz: intro -> cross (video: cruce, entrada, turbulencia, crema) -> app */
 
 const inicio = (function() {
   const raiz = document.getElementById("raiz");
@@ -11,8 +11,9 @@ const inicio = (function() {
   const campoClave = document.getElementById("clave de sesion");
   const textoError = document.getElementById("error de sesion");
 
-  /* Segundo del video de transicion en el que la pantalla ya queda en blanco */
-  const Segundoenblanco = 6.0;
+  /* Segundo del video de transicion en el que la pantalla ya queda en crema plano,
+     el mismo color de fondo del panel (cuadro 162 del video) */
+  const Segundoenblanco = 6.75;
   /* Si la persona pidio menos movimiento en su sistema, el fondo se queda quieto
      y se entra al panel sin el video de transicion */
   const sinMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -78,7 +79,7 @@ const inicio = (function() {
     formulario.classList.toggle("is-ready", listo);
   }
 
-  /* Cuando todo queda en blanco: se muestra la aplicacion y entra el menu */
+  /* Cuando todo queda en crema: se muestra la aplicacion y entra el menu */
   function mostrarAplicacion(usuario) {
     if (aplicacionVisible) {
       return;
@@ -97,7 +98,7 @@ const inicio = (function() {
     }, 800);
   }
 
-  /* Vigila el video fotograma a fotograma para cortar justo en el blanco */
+  /* Vigila el video fotograma a fotograma para cortar justo en el crema */
   function vigilarBlanco(usuario) {
     function revisar() {
       if (aplicacionVisible) {
