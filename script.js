@@ -2,10 +2,7 @@
 
 const gestorTareas = new TaskManager();
 const usuarios = almacenamiento["obtener usuarios"]();
-const equipoActual = almacenamiento["obtener equipos"]()[0];
-let filtroActual = "";
 
-const raizAplicacion = document.getElementById("aplicacion");
 const formulario = document.getElementById("formulario de tarea");
 const campoNombre = document.getElementById("nombre de tarea");
 const campoDescripcion = document.getElementById("descripcion de tarea");
@@ -17,7 +14,6 @@ const botonNuevaTarea = document.getElementById("boton de nueva tarea");
 const cajonFormulario = document.getElementById("cajon de formulario");
 const avisoGuardado = document.getElementById("aviso de guardado");
 const listadoTareas = document.getElementById("listado de tareas");
-const buscador = document.getElementById("buscador de tareas");
 
 /* Datos */
 
@@ -73,14 +69,7 @@ function moverTarea(id, direccion) {
 }
 
 function renderizarTodo() {
-  const tareas = gestorTareas.getAllTasks();
-  const ahora = new Date();
-  renderizarFecha(ahora);
-  renderizarJornada(tareas, ahora);
-  renderizarResumen(tareas);
-  renderizarTablero(tareas, filtroActual);
-  renderizarSemana(tareas, ahora);
-  renderizarEquipo(tareas, usuarios, equipoActual);
+  renderizarTablero(gestorTareas.getAllTasks(), "");
 }
 
 /* Formulario de tareas */
@@ -143,11 +132,6 @@ botonCancelar.addEventListener("click", function() {
 
 botonNuevaTarea.addEventListener("click", function() {
   abrirFormulario(!cajonFormulario.classList.contains("is-open"));
-});
-
-document.getElementById("boton de nueva tarea hero").addEventListener("click", function() {
-  abrirFormulario(true);
-  document.getElementById("tablero").scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 /* Lista de personas sugeridas en el campo "Asignado a" */
@@ -223,44 +207,7 @@ listadoTareas.querySelectorAll(".t-col").forEach(function(columna) {
   });
 });
 
-/* Busqueda */
-
-buscador.addEventListener("input", function() {
-  filtroActual = buscador.value.trim();
-  renderizarTablero(gestorTareas.getAllTasks(), filtroActual);
-});
-
-document.addEventListener("keydown", function(evento) {
-  const visible = document.body.classList.contains("en-aplicacion");
-  if (visible && (evento.ctrlKey || evento.metaKey) && evento.key.toLowerCase() === "k") {
-    evento.preventDefault();
-    buscador.focus();
-  }
-});
-
-/* Tema claro / oscuro */
-
-const botonTemaClaro = document.getElementById("boton de tema claro");
-const botonTemaOscuro = document.getElementById("boton de tema oscuro");
-
-function aplicarTema(oscuro) {
-  raizAplicacion.classList.toggle("is-dark", oscuro);
-  document.body.classList.toggle("tema-oscuro", oscuro);
-  botonTemaClaro.classList.toggle("is-on", !oscuro);
-  botonTemaOscuro.classList.toggle("is-on", oscuro);
-  botonTemaClaro.setAttribute("aria-pressed", oscuro ? "false" : "true");
-  botonTemaOscuro.setAttribute("aria-pressed", oscuro ? "true" : "false");
-  localStorage.setItem("tema de khronos", oscuro ? "oscuro" : "claro");
-}
-
-botonTemaClaro.addEventListener("click", function() {
-  aplicarTema(false);
-});
-botonTemaOscuro.addEventListener("click", function() {
-  aplicarTema(true);
-});
-
-/* Menu lateral y pestañas */
+/* Menu lateral */
 
 document.getElementById("menu lateral").addEventListener("click", function(evento) {
   const boton = evento.target.closest(".d-nav");
@@ -277,40 +224,9 @@ document.getElementById("menu lateral").addEventListener("click", function(event
   });
 });
 
-document.querySelector(".d-tabs").addEventListener("click", function(evento) {
-  const pestana = evento.target.closest(".d-tab");
-  if (!pestana) {
-    return;
-  }
-  this.querySelectorAll(".d-tab").forEach(function(otra) {
-    otra.classList.toggle("is-on", otra === pestana);
-  });
-});
-
-document.getElementById("boton de salir").addEventListener("click", function() {
-  window.location.reload();
-});
-
 /* Sesion */
 
-/* Acepta un usuario o un correo: "jorge.perdomo" o "jorge.perdomo@correo.com" -> Jorge / JP */
-function nombreDesdeCorreo(correo) {
-  const partes = correo.split("@")[0].split(/[\s._\-]+/).filter(Boolean);
-  const primero = partes[0] || "viajero";
-  return {
-    nombre: primero.charAt(0).toUpperCase() + primero.slice(1),
-    iniciales: partes.slice(0, 2).map(function(parte) {
-      return parte.charAt(0);
-    }).join("").toUpperCase()
-  };
-}
-
-inicio.alIniciarSesion(function(correo) {
-  const usuario = nombreDesdeCorreo(correo);
-  document.getElementById("nombre de usuario").textContent = usuario.nombre;
-  document.getElementById("saludo de usuario").textContent = usuario.nombre;
-  document.getElementById("avatar de usuario").textContent = usuario.iniciales;
-  document.getElementById("equipo de usuario").textContent = equipoActual.nombre;
+inicio.alIniciarSesion(function() {
   renderizarTodo();
   /* Terminada la entrada del menu, los clics ya no esperan a la animacion inicial */
   setTimeout(function() {
@@ -321,14 +237,4 @@ inicio.alIniciarSesion(function(correo) {
 /* Arranque */
 
 cargarTareas();
-/* Mientras el contenido del panel esta oculto, la pantalla se queda en blanco (tema claro) */
-aplicarTema(false);
 renderizarTodo();
-
-/* El reloj de jornada se actualiza cada 30 segundos */
-setInterval(function() {
-  const tareas = gestorTareas.getAllTasks();
-  const ahora = new Date();
-  renderizarFecha(ahora);
-  renderizarJornada(tareas, ahora);
-}, 30000);
