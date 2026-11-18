@@ -1,128 +1,140 @@
-/* Estilos generales de la interfaz */
+/* Estilos base y variables globales de Khronos */
+
+:root {
+  --fuente-titular: 'Marcellus', Georgia, serif;
+  --fuente-intro: 'Jost', 'Manrope', system-ui, sans-serif;
+  --fuente-cuerpo: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fuente-acento: Georgia, serif;
+
+  /* Colores de la pantalla de acceso */
+  --color-noche: #0E0D1A;
+  --color-pared: #404241;
+  --color-velo: 46, 49, 48;
+  --color-blanco: #FFFFFF;
+  --color-tinta-intro: #EFE8D5;
+  --color-tinta-intro-suave: #C2BBA9;
+  --color-terracota: #D9876A;
+  --color-campo-intro: rgba(239, 232, 213, .08);
+  --color-borde-intro: rgba(239, 232, 213, .34);
+
+  /* Colores del panel y tablero */
+  --color-fondo: #EFE8D5;
+  --color-superficie: #FFFFFF;
+  --color-tinta: #17162B;
+  --color-tenue: #5F5E7A;
+  --color-linea: #E6E4F2;
+  --color-acento: #6A5AE0;
+  --color-acento-suave: #EEEBFF;
+  --color-campo: #F7F6FC;
+  --color-reloj: #17162B;
+
+  /* Menú lateral */
+  --color-bordo: #5E0B1F;
+  --color-bordo-claro: #8A1F38;
+  --color-bordo-oscuro: #2B0A12;
+  --color-punto-rojo: #D23B3B;
+  --color-punto-azul: #1F2A4A;
+  --color-punto-rosa: #EE6A82;
+  --color-exito: #4CAF50;
+
+  /* Estados, avatares y fechas */
+  --color-rosa: #F6B3B9;
+  --isotipo-arena: var(--color-terracota);
+  --color-estado-pendiente: #F3C969;
+  --color-estado-proceso: #B3A8FA;
+  --color-estado-revision: #9CC8F4;
+  --color-estado-hecho: #8FDBB8;
+
+  --color-vence-hecha: #DDF4E9;
+  --tinta-vence-hecha: #1F6B4A;
+  --color-vence-pasada: #FBE3E8;
+  --tinta-vence-pasada: #A3243B;
+  --color-vence-hoy: #FDEBD3;
+  --tinta-vence-hoy: #8A4B12;
+  --color-vence-manana: #FDF3D6;
+  --tinta-vence-manana: #7A5A0C;
+  --color-vence-futura: #ECEAF8;
+  --tinta-vence-futura: #3F3A75;
+
+  /* Alertas y sombras */
+  --color-error: #C2334D;
+  --color-error-fondo: #FBE3E8;
+  --color-ok: #1F7A55;
+  --sombra-tarjeta-baja: 0 16px 34px rgba(40, 30, 110, .12);
+  --sombra-menu: 0 14px 30px rgba(40, 4, 14, .38);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  margin: 0;
+}
 
 body {
-  background-color: #f3f4f6;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  color: #1f2937;
+  background: var(--color-noche);
+  font-family: var(--fuente-cuerpo);
+  line-height: normal;
 }
 
-main {
-  padding-top: 1.5rem;
-  padding-bottom: 2rem;
+body.en-aplicacion {
+  background: var(--color-fondo);
 }
 
-/* Barra superior de navegacion */
-[id="barra de navegacion"] {
-  background-color: #1e2227 !important;
-  padding: 0.6rem 1.5rem;
+/* Símbolo SVG del logo reutilizado en la página */
+.k-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
-.navbar-brand {
-  font-size: 1.15rem;
-  letter-spacing: 0.2px;
-  margin-right: 1.5rem;
+.iso-tinta {
+  fill: currentColor;
 }
 
-.navbar-nav {
-  gap: 1rem;
+.iso-arena {
+  fill: var(--isotipo-arena);
 }
 
-.navbar-nav .nav-link {
-  font-size: 0.95rem;
-  color: #9ca3af;
-  transition: color 0.2s ease;
+/* Fases de pantalla */
+.k-root {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--color-pared);
 }
 
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
-  color: #ffffff !important;
+.k-root.is-app {
+  height: auto;
+  min-height: 100vh;
+  overflow: visible;
+  background: transparent;
 }
 
-/* Tarjeta principal del formulario */
-.tarjeta.formulario,
-.tarjeta.tabla {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+.is-app .k-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  animation: k-hide .7s ease forwards;
 }
 
-.tarjeta.tarea,
-.tarjeta.equipo {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  transition: box-shadow 0.2s ease;
+.d-root {
+  display: none;
 }
 
-.tarjeta.tarea:hover,
-.tarjeta.equipo:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-}
-
-.titulo.formulario {
-  margin-bottom: 1.25rem;
-}
-
-.bloque.campo {
-  margin-bottom: 1rem;
-}
-
-.etiqueta.campo {
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: #1f2937;
-  margin-bottom: 0.35rem;
-}
-
-/* Estilos de los campos de formulario */
-.form-control,
-.form-select {
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 0.92rem;
-  padding: 0.55rem 0.75rem;
-  color: #111827;
-}
-
-.form-control:focus,
-.form-select:focus {
-  border-color: #1d4ed8;
-  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15);
-}
-
-/* Contenedor y estilos de botones */
-.contenedor.botones {
+.is-app .d-root {
   display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
-  padding-top: 0.5rem;
 }
 
-.boton.cancelar {
-  background-color: #ffffff;
-  border: 1px solid #d1d5db;
-  color: #4b5563;
-  font-weight: 500;
-  padding: 0.45rem 1rem;
-}
-
-.boton.cancelar:hover {
-  background-color: #f9fafb;
-  border-color: #9ca3af;
-  color: #111827;
-}
-
-.boton.guardar {
-  background-color: #1d4ed8;
-  border-color: #1d4ed8;
-  font-weight: 500;
-  padding: 0.45rem 1rem;
-}
-
-.boton.guardar:hover {
-  background-color: #1e40af;
-  border-color: #1e40af;
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+  }
 }

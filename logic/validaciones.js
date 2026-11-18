@@ -1,4 +1,23 @@
-/* Validacion de los campos del formulario de tareas */
+// Validación de los formularios de tareas y de ingreso
+
+function marcarError(campo, mensaje) {
+  const bloque = campo.closest(".t-f");
+  if (bloque) {
+    bloque.classList.toggle("has-err", mensaje !== "");
+    const texto = bloque.querySelector(".t-err");
+    if (texto) {
+      texto.textContent = mensaje;
+    }
+  }
+  campo.setAttribute("aria-invalid", mensaje !== "" ? "true" : "false");
+}
+
+function limpiarErroresDeTarea() {
+  const ids = ["nombre de tarea", "descripcion de tarea", "usuario asignado", "fecha de entrega", "estado de tarea"];
+  ids.forEach(function(id) {
+    marcarError(document.getElementById(id), "");
+  });
+}
 
 function validateTaskForm() {
   const campoNombre = document.getElementById("nombre de tarea");
@@ -7,41 +26,39 @@ function validateTaskForm() {
   const campoFecha = document.getElementById("fecha de entrega");
   const campoEstado = document.getElementById("estado de tarea");
 
-  const valorNombre = campoNombre.value.trim();
-  const valorDescripcion = campoDescripcion.value.trim();
-  const valorAsignado = campoAsignado.value.trim();
-  const valorFecha = campoFecha.value.trim();
-  const valorEstado = campoEstado.value.trim();
+  const reglas = [
+    { campo: campoNombre, invalido: campoNombre.value.trim().length <= 8, mensaje: "El nombre debe tener al menos 9 caracteres." },
+    { campo: campoAsignado, invalido: campoAsignado.value.trim().length <= 8, mensaje: "La persona asignada debe tener al menos 9 caracteres." },
+    { campo: campoFecha, invalido: campoFecha.value.trim().length === 0, mensaje: "La fecha de entrega no puede estar en blanco." },
+    { campo: campoDescripcion, invalido: campoDescripcion.value.trim().length <= 15, mensaje: "La descripción debe tener al menos 16 caracteres." },
+    { campo: campoEstado, invalido: campoEstado.value.trim().length === 0, mensaje: "Debes seleccionar un estado válido." }
+  ];
 
-  if (valorNombre.length <= 8) {
-    alert("El nombre debe tener al menos 9 caracteres y no estar en blanco.");
-    campoNombre.focus();
+  let primerInvalido = null;
+  reglas.forEach(function(regla) {
+    marcarError(regla.campo, regla.invalido ? regla.mensaje : "");
+    if (regla.invalido && primerInvalido === null) {
+      primerInvalido = regla.campo;
+    }
+  });
+
+  if (primerInvalido !== null) {
+    primerInvalido.focus();
     return false;
   }
-
-  if (valorDescripcion.length <= 15) {
-    alert("La descripcion debe tener al menos 16 caracteres y no estar en blanco.");
-    campoDescripcion.focus();
-    return false;
-  }
-
-  if (valorAsignado.length <= 8) {
-    alert("La persona asignada debe tener al menos 9 caracteres y no estar en blanco.");
-    campoAsignado.focus();
-    return false;
-  }
-
-  if (valorFecha.length === 0) {
-    alert("La fecha de entrega no puede estar en blanco.");
-    campoFecha.focus();
-    return false;
-  }
-
-  if (valorEstado.length === 0) {
-    alert("Debes seleccionar un estado valido para la tarea.");
-    campoEstado.focus();
-    return false;
-  }
-
   return true;
+}
+
+// Formato básico de correo mientras no exista autenticación con servidor
+const formatoCorreo = /^[^\s@]+@[^\s@]+$/;
+
+function validateLoginForm(correo, clave) {
+  const valor = correo.trim();
+  if (valor.length > 120 || !formatoCorreo.test(valor)) {
+    return "Escribe un correo con la forma nombre@dominio.";
+  }
+  if (clave.length === 0) {
+    return "Escribe tu contraseña.";
+  }
+  return "";
 }

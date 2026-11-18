@@ -1,0 +1,349 @@
+/* Tablero de columnas y formulario desplegable de tareas */
+
+.t-root.d-in {
+  animation-delay: .8s;
+}
+
+.estado-pendiente {
+  --tono: var(--color-estado-pendiente);
+}
+
+.estado-proceso {
+  --tono: var(--color-estado-proceso);
+}
+
+.estado-revision {
+  --tono: var(--color-estado-revision);
+}
+
+.estado-hecho {
+  --tono: var(--color-estado-hecho);
+}
+
+.t-ch {
+  background: var(--tono);
+}
+
+.t-root {
+  width: 100%;
+  padding: 26px;
+  border-radius: 30px;
+  background: var(--color-superficie);
+  border: 1px solid var(--color-linea);
+  color: var(--color-tinta);
+  transition: background .5s, color .5s;
+}
+
+.t-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.t-h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: normal;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+.t-sub {
+  font-size: 13px;
+  color: var(--color-tenue);
+  font-weight: 600;
+}
+
+.t-add {
+  margin-left: auto;
+  height: 46px;
+  padding: 0 18px 0 8px;
+  border: 0;
+  border-radius: 15px;
+  background: var(--color-acento);
+  color: var(--color-blanco);
+  font: 700 13.5px var(--fuente-cuerpo);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 12px 26px rgba(106, 90, 224, .32);
+  transition: transform .3s;
+}
+
+.t-add:hover {
+  transform: translateY(-2px);
+}
+
+.t-add b {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .2);
+  display: grid;
+  place-items: center;
+  transition: transform .4s ease;
+}
+
+.t-add.is-open b {
+  transform: rotate(135deg);
+}
+
+/* Cajón desplegable del formulario */
+.t-drawer {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .45s ease, opacity .3s ease, margin .45s ease;
+}
+
+.t-drawer.is-open {
+  max-height: 750px;
+  opacity: 1;
+  margin-bottom: 24px;
+}
+
+.t-drawer:not(.is-open) {
+  pointer-events: none;
+}
+
+.t-form {
+  border-radius: 24px;
+  padding: 22px;
+  background: var(--color-acento-suave);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.t-f {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.t-f.is-wide {
+  grid-column: span 2;
+}
+
+.t-f label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--color-tenue);
+}
+
+.t-f input,
+.t-f select,
+.t-f textarea {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1.5px solid transparent;
+  border-radius: 14px;
+  background: var(--color-superficie);
+  color: var(--color-tinta);
+  font: 500 14px var(--fuente-cuerpo);
+  outline: none;
+  transition: border-color .3s, box-shadow .3s;
+  color-scheme: light;
+}
+
+.t-f textarea {
+  padding-top: 12px;
+  resize: none;
+}
+
+.t-f input:focus,
+.t-f select:focus,
+.t-f textarea:focus {
+  border-color: var(--color-acento);
+  box-shadow: 0 0 0 4px rgba(106, 90, 224, .15);
+}
+
+.t-f.has-err input,
+.t-f.has-err select,
+.t-f.has-err textarea {
+  border-color: var(--color-error);
+}
+
+.t-err {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-error);
+  min-height: 16px;
+}
+
+.t-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.t-ok {
+  margin-right: auto;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-ok);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: t-in .5s both;
+}
+
+.t-btn {
+  height: 46px;
+  padding: 0 20px;
+  border-radius: 14px;
+  border: 1px solid var(--color-linea);
+  background: var(--color-superficie);
+  color: var(--color-tinta);
+  font: 700 13.5px var(--fuente-cuerpo);
+  cursor: pointer;
+}
+
+.t-btn.is-main {
+  background: var(--color-tinta);
+  color: var(--color-superficie);
+  border-color: var(--color-tinta);
+}
+
+/* Columnas del tablero */
+.t-cols {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.t-col {
+  border-radius: 24px;
+  padding: 10px;
+  background: var(--color-campo);
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: background .3s, box-shadow .3s;
+}
+
+.t-col.is-over {
+  box-shadow: inset 0 0 0 2px var(--color-acento);
+  background: var(--color-acento-suave);
+}
+
+.t-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.t-list:empty::after {
+  content: 'Sin tareas aquí. Arrastra una tarjeta o crea una nueva.';
+  flex: 1;
+  min-height: 120px;
+  border: 1.5px dashed var(--color-linea);
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 16px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-tenue);
+}
+
+.t-ch {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  padding: 14px 14px 18px;
+  color: var(--color-reloj);
+}
+
+.t-ch b {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.t-ch span {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: .8;
+}
+
+.t-ch i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 5px;
+  background: rgba(23, 22, 43, .35);
+  transition: width .5s ease-out;
+}
+
+.t-ch em {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .55);
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+@media (max-width: 1100px) {
+  .t-cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .t-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .t-root {
+    padding: 16px;
+    border-radius: 24px;
+  }
+
+  .t-cols {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .t-col {
+    flex: 0 0 82%;
+    scroll-snap-align: start;
+  }
+
+  .t-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .t-f.is-wide {
+    grid-column: auto;
+  }
+
+  .t-add {
+    margin-left: 0;
+  }
+}

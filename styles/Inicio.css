@@ -1,0 +1,392 @@
+/* Escena de inicio, video de transición y formulario de acceso */
+
+.k-scene {
+  position: absolute;
+  inset: 0;
+}
+
+/* Evita que la capa del video bloquee los clics del formulario */
+.k-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.k-video,
+.k-transition {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.k-video {
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+.k-video.is-ready {
+  opacity: 1;
+}
+
+.k-transition {
+  z-index: 3;
+  opacity: 0;
+  transition: opacity .7s ease-in-out;
+}
+
+.is-cross .k-transition,
+.is-app .k-transition {
+  opacity: 1;
+}
+
+/* Contenido de bienvenida y formulario de acceso */
+.k-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden auto;
+  display: grid;
+  grid-template-columns: minmax(0, 34fr) minmax(0, 37fr) minmax(0, 23fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "top top top"
+    "intro . acceso"
+    "pie pie pie";
+  column-gap: 0;
+  padding: clamp(20px, 4.2vh, 48px) clamp(22px, 5vw, 96px);
+  color: var(--color-tinta-intro);
+  font-family: var(--fuente-intro);
+}
+
+.k-ui {
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+.is-cross .k-ui,
+.is-app .k-ui {
+  opacity: 0 !important;
+  transform: translateY(-8px);
+  pointer-events: none;
+}
+
+.k-top {
+  grid-area: top;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  animation: k-up 1.1s .3s ease-out both;
+}
+
+.k-brand {
+  font-family: var(--fuente-titular);
+  font-size: clamp(1.35rem, 1.2rem + .9vw, 2.3rem);
+  line-height: 1;
+  letter-spacing: .32em;
+  text-transform: uppercase;
+}
+
+.k-isotipo {
+  display: inline-block;
+  width: .616em;
+  height: .7em;
+  margin-right: .3em;
+  vertical-align: baseline;
+}
+
+.k-meta,
+.k-label,
+.k-login-title,
+.k-steps {
+  font-weight: 500;
+  font-size: clamp(.68rem, .62rem + .18vw, .8rem);
+  letter-spacing: .3em;
+  text-transform: uppercase;
+}
+
+.k-meta {
+  color: var(--color-tinta-intro-suave);
+}
+
+.k-intro {
+  grid-area: intro;
+  align-self: center;
+  max-width: 42rem;
+  padding-right: clamp(8px, 2vw, 32px);
+}
+
+.k-title {
+  margin: 0;
+  font-family: var(--fuente-titular);
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3.1vw, 4.4rem);
+  line-height: 1.08;
+  letter-spacing: -.005em;
+  color: var(--color-tinta-intro);
+  animation: k-up 1.2s .6s ease-out both;
+}
+
+.k-quote {
+  margin-top: clamp(16px, 3vh, 30px);
+  max-width: 28ch;
+  font-family: var(--fuente-acento);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.15rem, .9rem + .8vw, 1.75rem);
+  line-height: 1.3;
+  color: var(--color-tinta-intro-suave);
+  animation: k-up 1.2s .85s ease-out both;
+}
+
+/* Formulario de acceso */
+.k-login {
+  grid-area: acceso;
+  align-self: center;
+  justify-self: end;
+  width: min(100%, 300px);
+  display: flex;
+  flex-direction: column;
+  animation: k-up 1.2s 1.05s ease-out both;
+}
+
+.k-login.is-shake {
+  animation: k-shake .5s ease;
+}
+
+.k-login-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
+  color: var(--color-tinta-intro);
+}
+
+.k-login-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-borde-intro);
+}
+
+.k-label {
+  margin: 0 0 7px 4px;
+  font-size: .66rem;
+  color: var(--color-tinta-intro-suave);
+}
+
+.k-pill {
+  width: 100%;
+  height: 46px;
+  margin-bottom: 14px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--color-borde-intro);
+  background: var(--color-campo-intro);
+  color: var(--color-tinta-intro);
+  font: 400 1rem var(--fuente-intro);
+  letter-spacing: .02em;
+  outline: none;
+  caret-color: var(--color-tinta-intro);
+  transition: background .3s, border-color .3s, box-shadow .3s;
+}
+
+.k-pill:hover {
+  background: rgba(239, 232, 213, .13);
+}
+
+.k-pill:focus,
+.k-pill:focus-visible {
+  background: rgba(239, 232, 213, .16);
+  border-color: var(--color-tinta-intro);
+  box-shadow: 0 0 0 3px rgba(239, 232, 213, .2);
+}
+
+.k-pill:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-tinta-intro);
+  box-shadow: 0 0 0 40px var(--color-pared) inset;
+}
+
+.k-enter {
+  margin: 6px 0 0;
+  cursor: pointer;
+  border-color: var(--color-tinta-intro);
+  background: var(--color-tinta-intro);
+  color: var(--color-pared);
+  font-weight: 500;
+  font-size: .8rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .45s ease, transform .45s ease, visibility 0s .45s, background .3s;
+}
+
+.k-enter:hover {
+  background: var(--color-tinta-intro-suave);
+}
+
+.k-enter:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-borde-intro);
+}
+
+.k-login.is-ready .k-enter {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity .45s ease, transform .45s ease, visibility 0s, background .3s;
+}
+
+.k-error {
+  margin: 12px 0 0;
+  padding: 9px 14px;
+  border-radius: 14px;
+  background: rgba(94, 11, 31, .88);
+  color: var(--color-blanco);
+  font-size: .82rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Pie de la bienvenida */
+.k-foot {
+  grid-area: pie;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  animation: k-up 1.2s 1.25s ease-out both;
+}
+
+.k-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px clamp(18px, 2.6vw, 44px);
+  color: var(--color-tinta-intro-suave);
+}
+
+.k-steps li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.k-steps span {
+  font-family: var(--fuente-titular);
+  font-size: 1.05rem;
+  letter-spacing: .08em;
+  color: var(--color-terracota);
+}
+
+@keyframes k-hide {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes k-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes k-shake {
+  0%, 100% { transform: none; }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(9px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(4px); }
+}
+
+@media (max-height: 560px) and (min-width: 900px) {
+  .k-meta {
+    display: none;
+  }
+
+  .k-steps {
+    gap: 8px 16px;
+    letter-spacing: .22em;
+  }
+
+  .k-quote {
+    margin-top: 10px;
+  }
+
+  .k-login-title {
+    margin-bottom: 10px;
+  }
+
+  .k-pill {
+    height: 40px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  .k-overlay {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto minmax(24px, 1fr) auto auto;
+    grid-template-areas: "top" "intro" "." "acceso" "pie";
+    row-gap: 0;
+  }
+
+  .k-top,
+  .k-intro,
+  .k-login,
+  .k-foot {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Fondo suave detrás del texto en pantallas angostas para mantener la lectura */
+  .k-top::before,
+  .k-intro::before,
+  .k-login::before,
+  .k-foot::before {
+    content: '';
+    position: absolute;
+    inset: -22px -36px;
+    z-index: -1;
+    border-radius: 48px;
+    background: rgba(var(--color-velo), .84);
+    filter: blur(22px);
+    pointer-events: none;
+  }
+
+  .k-intro {
+    align-self: start;
+    margin-top: clamp(28px, 6vh, 64px);
+    max-width: 36rem;
+    padding-right: 0;
+  }
+
+  .k-title {
+    font-size: clamp(2rem, 7.4vw, 3.6rem);
+  }
+
+  .k-login {
+    justify-self: stretch;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .k-foot {
+    margin-top: 18px;
+  }
+
+  .k-quote {
+    max-width: 30ch;
+    font-size: clamp(1.25rem, 5vw, 1.6rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .k-meta {
+    display: none;
+  }
+
+  .k-steps {
+    gap: 10px 18px;
+  }
+}
