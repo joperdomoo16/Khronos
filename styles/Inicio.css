@@ -1,4 +1,4 @@
-/* Escena de inicio, video de transición y formulario de acceso */
+/* Escena de inicio, video de transicion y formulario de acceso */
 
 .k-scene {
   position: absolute;
@@ -339,7 +339,7 @@
     z-index: 1;
   }
 
-  /* Fondo suave detrás del texto en pantallas angostas para mantener la lectura */
+  /* Fondo suave para que el texto se lea en pantallas pequeñas */
   .k-top::before,
   .k-intro::before,
   .k-login::before,

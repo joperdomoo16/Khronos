@@ -1,0 +1,146 @@
+/* Estilos propios del panel y las columnas */
+
+.k-titulo-panel {
+  font-family: var(--fuente-titular);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.k-isotipo-panel {
+  width: 22px;
+  height: 25px;
+  vertical-align: -4px;
+  margin-right: 4px;
+}
+
+/* Barra lateral izquierda en gris*/
+.k-sidebar {
+  width: 220px;
+  background-color: var(--color-pared);
+  color: var(--color-tinta-intro);
+}
+
+.k-sidebar-mobile {
+  background-color: var(--color-pared);
+  color: var(--color-tinta-intro);
+}
+
+.k-nav-btn {
+  color: var(--color-tinta-intro-suave);
+  text-align: left;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 600;
+  border: 0;
+  background: transparent;
+}
+
+.k-nav-btn:hover {
+  color: var(--color-blanco);
+  background-color: rgba(239, 232, 213, .12);
+}
+
+.k-nav-btn.active {
+  background-color: var(--color-acento);
+  color: var(--color-blanco);
+}
+
+/* Cabeceras de columnas y zonas del tablero */
+.k-col-box {
+  background-color: var(--color-campo);
+  border-color: var(--color-linea);
+  min-height: 360px;
+}
+
+.k-col-box.is-over {
+  background-color: var(--color-acento-suave);
+  border-color: var(--color-acento) !important;
+}
+
+.k-badge-pendiente {
+  background-color: #F6DFB2;
+  color: #6E4B11;
+}
+
+.k-badge-proceso {
+  background-color: #EAD5CA;
+  color: #6C2B1D;
+}
+
+.k-badge-revision {
+  background-color: #DCE2E6;
+  color: #2F3A42;
+}
+
+.k-badge-hecho {
+  background-color: #D6E8DB;
+  color: #1F5638;
+}
+
+/* Etiquetas de vencimiento */
+.vence-hecha {
+  background-color: #D6E8DB;
+  color: #1F5638;
+}
+
+.vence-pasada {
+  background-color: #FBE3E8;
+  color: #A3243B;
+}
+
+.vence-hoy {
+  background-color: #FDEBD3;
+  color: #8A4B12;
+}
+
+.vence-manana {
+  background-color: #FDF3D6;
+  color: #7A5A0C;
+}
+
+.vence-futura {
+  background-color: #EFECE5;
+  color: #404241;
+}
+
+/* Tarjetas y efecto al arrastrar */
+.t-card {
+  cursor: grab;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.t-card:hover {
+  transform: translateY(-2px);
+}
+
+.t-card.is-dragging {
+  opacity: .45;
+}
+
+.t-card .t-name,
+.t-card .t-desc {
+  overflow-wrap: break-word;
+}
+
+.t-list:empty::after {
+  content: 'Sin tareas aquí. Arrastra una tarjeta o crea una nueva.';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 110px;
+  padding: 16px;
+  text-align: center;
+  font-size: .85rem;
+  color: var(--color-tenue);
+  border: 1px dashed var(--color-linea);
+  border-radius: 14px;
+}
+
+.k-form-box {
+  background-color: var(--color-campo);
+}
+
+.t-card.is-hecha .t-name {
+  text-decoration: line-through;
+  opacity: .75;
+}

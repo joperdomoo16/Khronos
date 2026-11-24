@@ -1,4 +1,4 @@
-// Manejo de los videos de bienvenida, inicio de sesión y transición al tablero
+// Controla los videos de bienvenida y la entrada al tablero
 
 function inicializarInicio() {
   const raiz = document.getElementById("raiz");
@@ -37,7 +37,7 @@ function inicializarInicio() {
     });
   }
 
-  // Precarga el video de transición después del video principal
+  // Precarga el video de transicion despues del video principal
   function cargarTransicion() {
     if (transicionPedida || sinMovimiento) {
       return;

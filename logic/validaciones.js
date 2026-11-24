@@ -1,21 +1,25 @@
-// Validación de los formularios de tareas y de ingreso
+// Revisa que los datos del formulario esten completos
 
 function marcarError(campo, mensaje) {
+  const invalido = mensaje !== "";
+  campo.classList.toggle("is-invalid", invalido);
   const bloque = campo.closest(".t-f");
   if (bloque) {
-    bloque.classList.toggle("has-err", mensaje !== "");
     const texto = bloque.querySelector(".t-err");
     if (texto) {
       texto.textContent = mensaje;
     }
   }
-  campo.setAttribute("aria-invalid", mensaje !== "" ? "true" : "false");
+  campo.setAttribute("aria-invalid", invalido ? "true" : "false");
 }
 
 function limpiarErroresDeTarea() {
   const ids = ["nombre de tarea", "descripcion de tarea", "usuario asignado", "fecha de entrega", "estado de tarea"];
-  ids.forEach(function(id) {
-    marcarError(document.getElementById(id), "");
+  ids.forEach(function (id) {
+    const el = document.getElementById(id);
+    if (el) {
+      marcarError(el, "");
+    }
   });
 }
 
@@ -28,14 +32,14 @@ function validateTaskForm() {
 
   const reglas = [
     { campo: campoNombre, invalido: campoNombre.value.trim().length <= 8, mensaje: "El nombre debe tener al menos 9 caracteres." },
-    { campo: campoAsignado, invalido: campoAsignado.value.trim().length <= 8, mensaje: "La persona asignada debe tener al menos 9 caracteres." },
+    { campo: campoAsignado, invalido: campoAsignado.value.trim().length === 0, mensaje: "Selecciona la persona responsable." },
     { campo: campoFecha, invalido: campoFecha.value.trim().length === 0, mensaje: "La fecha de entrega no puede estar en blanco." },
     { campo: campoDescripcion, invalido: campoDescripcion.value.trim().length <= 15, mensaje: "La descripción debe tener al menos 16 caracteres." },
     { campo: campoEstado, invalido: campoEstado.value.trim().length === 0, mensaje: "Debes seleccionar un estado válido." }
   ];
 
   let primerInvalido = null;
-  reglas.forEach(function(regla) {
+  reglas.forEach(function (regla) {
     marcarError(regla.campo, regla.invalido ? regla.mensaje : "");
     if (regla.invalido && primerInvalido === null) {
       primerInvalido = regla.campo;
@@ -49,7 +53,7 @@ function validateTaskForm() {
   return true;
 }
 
-// Formato básico de correo mientras no exista autenticación con servidor
+// Revisa que el correo tenga forma texto@texto
 const formatoCorreo = /^[^\s@]+@[^\s@]+$/;
 
 function validateLoginForm(correo, clave) {

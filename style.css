@@ -1,12 +1,11 @@
-/* Estilos base y variables globales de Khronos */
+/* Colores principales y ajustes para Bootstrap */
 
 :root {
   --fuente-titular: 'Marcellus', Georgia, serif;
   --fuente-intro: 'Jost', 'Manrope', system-ui, sans-serif;
   --fuente-cuerpo: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --fuente-acento: Georgia, serif;
 
-  /* Colores de la pantalla de acceso */
+  /* Colores de la pantalla de inicio */
   --color-noche: #0E0D1A;
   --color-pared: #404241;
   --color-velo: 46, 49, 48;
@@ -17,51 +16,18 @@
   --color-campo-intro: rgba(239, 232, 213, .08);
   --color-borde-intro: rgba(239, 232, 213, .34);
 
-  /* Colores del panel y tablero */
+  /* Paleta unificada para el panel interno */
   --color-fondo: #EFE8D5;
   --color-superficie: #FFFFFF;
   --color-tinta: #17162B;
-  --color-tenue: #5F5E7A;
-  --color-linea: #E6E4F2;
-  --color-acento: #6A5AE0;
-  --color-acento-suave: #EEEBFF;
-  --color-campo: #F7F6FC;
-  --color-reloj: #17162B;
-
-  /* Menú lateral */
-  --color-bordo: #5E0B1F;
-  --color-bordo-claro: #8A1F38;
-  --color-bordo-oscuro: #2B0A12;
-  --color-punto-rojo: #D23B3B;
-  --color-punto-azul: #1F2A4A;
-  --color-punto-rosa: #EE6A82;
-  --color-exito: #4CAF50;
-
-  /* Estados, avatares y fechas */
-  --color-rosa: #F6B3B9;
+  --color-tenue: #5C5B6E;
+  --color-linea: #DDD5C3;
+  --color-acento: #8E3524;
+  --color-acento-oscuro: #732A1C;
+  --color-acento-suave: #F8EFE9;
+  --color-campo: #FAF7F0;
+  --color-arena-suave: #E2A56C;
   --isotipo-arena: var(--color-terracota);
-  --color-estado-pendiente: #F3C969;
-  --color-estado-proceso: #B3A8FA;
-  --color-estado-revision: #9CC8F4;
-  --color-estado-hecho: #8FDBB8;
-
-  --color-vence-hecha: #DDF4E9;
-  --tinta-vence-hecha: #1F6B4A;
-  --color-vence-pasada: #FBE3E8;
-  --tinta-vence-pasada: #A3243B;
-  --color-vence-hoy: #FDEBD3;
-  --tinta-vence-hoy: #8A4B12;
-  --color-vence-manana: #FDF3D6;
-  --tinta-vence-manana: #7A5A0C;
-  --color-vence-futura: #ECEAF8;
-  --tinta-vence-futura: #3F3A75;
-
-  /* Alertas y sombras */
-  --color-error: #C2334D;
-  --color-error-fondo: #FBE3E8;
-  --color-ok: #1F7A55;
-  --sombra-tarjeta-baja: 0 16px 34px rgba(40, 30, 110, .12);
-  --sombra-menu: 0 14px 30px rgba(40, 4, 14, .38);
 }
 
 [hidden] {
@@ -83,7 +49,7 @@ body.en-aplicacion {
   background: var(--color-fondo);
 }
 
-/* Símbolo SVG del logo reutilizado en la página */
+/* Simbolo SVG del logo reutilizado en el encabezado */
 .k-sprite {
   position: absolute;
   width: 0;
@@ -99,7 +65,7 @@ body.en-aplicacion {
   fill: var(--isotipo-arena);
 }
 
-/* Fases de pantalla */
+/* Control de fases entre bienvenida y panel */
 .k-root {
   position: relative;
   width: 100%;
@@ -129,7 +95,29 @@ body.en-aplicacion {
 }
 
 .is-app .d-root {
-  display: flex;
+  display: block;
+}
+
+/* Cambia los colores de Bootstrap por los del proyecto */
+.d-root {
+  --bs-body-bg: var(--color-fondo);
+  --bs-body-color: var(--color-tinta);
+  --bs-primary: var(--color-acento);
+  --bs-border-color: var(--color-linea);
+  background-color: var(--color-fondo);
+  color: var(--color-tinta);
+  font-family: var(--fuente-cuerpo);
+}
+
+.btn-khronos {
+  --bs-btn-bg: var(--color-acento);
+  --bs-btn-border-color: var(--color-acento);
+  --bs-btn-color: var(--color-blanco);
+  --bs-btn-hover-bg: var(--color-acento-oscuro);
+  --bs-btn-hover-border-color: var(--color-acento-oscuro);
+  --bs-btn-hover-color: var(--color-blanco);
+  --bs-btn-active-bg: var(--color-acento-oscuro);
+  --bs-btn-active-color: var(--color-blanco);
 }
 
 @media (prefers-reduced-motion: reduce) {
