@@ -27,7 +27,6 @@
   --color-acento-suave: #F8EFE9;
   --color-campo: #FAF7F0;
   --color-arena-suave: #E2A56C;
-  --isotipo-arena: var(--color-terracota);
 }
 
 [hidden] {
@@ -47,22 +46,6 @@ body {
 
 body.en-aplicacion {
   background: var(--color-fondo);
-}
-
-/* Simbolo SVG del logo reutilizado en el encabezado */
-.k-sprite {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
-
-.iso-tinta {
-  fill: currentColor;
-}
-
-.iso-arena {
-  fill: var(--isotipo-arena);
 }
 
 /* Control de fases entre bienvenida y panel */
